@@ -1,0 +1,10 @@
+#import "../fragments/student.graphql"
+subscription PlaceNotify($place: Int!) {
+    notifyStudentPlace(notifyPlace: $place) {
+        queueName
+        place
+        student {
+            ...StudentData
+        }
+    }
+}

@@ -1,0 +1,6 @@
+#import "../fragments/student.graphql"
+mutation AddStudent($name: String!, $tgId: Int!) {
+    addStudent(student: {name: $name, tgId: $tgId}){
+        ...StudentData
+    }
+}

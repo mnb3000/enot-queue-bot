@@ -1,0 +1,4 @@
+fragment QueuePlace on QueuePlaceType {
+    queueName
+    place
+}

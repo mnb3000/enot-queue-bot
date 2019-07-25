@@ -1,0 +1,14 @@
+#import "../fragments/student.graphql"
+#import "../fragments/queuePlaces.graphql"
+#import "../fragments/studentToQueues.graphql"
+mutation JoinQueue($queueName: String!, $studentTgId: Int!) {
+    joinQueue(queueName: $queueName, studentTgId: $studentTgId) {
+        ...StudentData
+        queuePlaces {
+            ...QueuePlace
+        }
+        studentToQueuesInQueue {
+            ...StudentToQueuesData
+        }
+    }
+}

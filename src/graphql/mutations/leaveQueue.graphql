@@ -1,0 +1,6 @@
+#import "../fragments/student.graphql"
+mutation LeaveQueue($queueName: String!, $studentTgId: Int!) {
+    leaveQueue(queueName: $queueName, studentTgId: $studentTgId) {
+        ...StudentData
+    }
+}

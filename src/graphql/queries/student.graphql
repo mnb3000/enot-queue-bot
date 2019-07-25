@@ -1,0 +1,10 @@
+#import "../fragments/student.graphql"
+#import "../fragments/queuePlaces.graphql"
+query Student($tgId: Int!) {
+    student(tgId: $tgId) {
+        ...StudentData
+        queuePlaces {
+            ...QueuePlace
+        }
+    }
+}

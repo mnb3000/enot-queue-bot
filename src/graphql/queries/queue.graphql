@@ -1,0 +1,14 @@
+#import "../fragments/student.graphql"
+#import "../fragments/studentToQueues.graphql"
+query Queue($name: String!) {
+    queue(name: $name) {
+        id
+        name
+        studentToQueuesInQueue {
+            ...StudentToQueuesData
+        }
+        students {
+            ...StudentData
+        }
+    }
+}

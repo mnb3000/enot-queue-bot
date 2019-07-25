@@ -1,0 +1,6 @@
+fragment StudentToQueuesData on StudentToQueue {
+    studentToQueueId
+    status
+    queueId
+    studentId
+}
