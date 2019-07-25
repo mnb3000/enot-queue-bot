@@ -44,10 +44,7 @@ export default async function sendQueue(userId: number, queue: QueueQuery['queue
         const queuePlace = find(updatedStudent.queuePlaces, {
           queueName: queue.name,
         });
-        const { studentToQueueId } = updatedStudent.studentToQueuesInQueue.filter(
-          studentToQueue => studentToQueue.queueId === queue.id,
-        )[0];
-        await bot.sendMessage(userId, strings.joinedQueue(queue.name, queuePlace!.place, studentToQueueId), { parse_mode: 'Markdown' });
+        await bot.sendMessage(userId, strings.joinedQueue(queue.name, queuePlace!.place, queuePlace!.uniqueId), { parse_mode: 'Markdown' });
       } else {
         await bot.sendMessage(userId, strings.error);
       }

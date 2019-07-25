@@ -82,6 +82,7 @@ export type QueuePlaceType = {
   __typename?: "QueuePlaceType";
   queueName: Scalars["String"];
   place: Scalars["Float"];
+  uniqueId: Scalars["Float"];
 };
 
 export enum Status {
@@ -123,6 +124,7 @@ export type StudentUpdatePayload = {
   __typename?: "StudentUpdatePayload";
   queueName: Scalars["String"];
   place: Scalars["Float"];
+  uniqueId: Scalars["Float"];
   student: Student;
 };
 
@@ -141,7 +143,7 @@ export type SubscriptionNotifyStudentPlaceArgs = {
 };
 export type QueuePlaceFragment = { __typename?: "QueuePlaceType" } & Pick<
   QueuePlaceType,
-  "queueName" | "place"
+  "queueName" | "place" | "uniqueId"
 >;
 
 export type StudentDataFragment = { __typename?: "Student" } & Pick<

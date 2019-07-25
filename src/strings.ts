@@ -14,14 +14,12 @@ export default {
   ) => {
     const queueNames = student.queuePlaces.map(queuePlace => queuePlace.queueName);
     const queueIndex = queueNames.indexOf(queue.name);
-    const studentToQueue = queue.studentToQueuesInQueue.filter(
-      studentToQueueFilter => studentToQueueFilter.studentId === student.id,
-    )[0];
+    const queuePlaces = student.queuePlaces[queueIndex];
     return `*Очередь:* ${queue.name}
 *Количество человек:* ${queue.students.length}
-${queueNames.includes(queue.name) && queueIndex !== -1 && studentToQueue
-    ? `Ваша позиция в очереди: *${student.queuePlaces[queueIndex].place}*
-Ваш уникальный номер в очереди *${studentToQueue.studentToQueueId}*`
+${queueNames.includes(queue.name) && queueIndex !== -1
+    ? `Ваша позиция в очереди: *${queuePlaces.place}*
+Ваш уникальный номер в очереди *${queuePlaces.uniqueId}*`
     : ''}`;
   },
   queueKeyboard: {
