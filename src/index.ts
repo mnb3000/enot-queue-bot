@@ -4,7 +4,7 @@ import bot from './bot';
 import replyManager from './replyManager';
 
 import signUp from './commands/signUp';
-import subNotifyPlace from './commands/subNotifyPlace';
+import subNotifyPlace, { subNotifyPassed } from './commands/subNotify';
 
 const notifyPlaces = [
   2, 3,
@@ -23,7 +23,8 @@ async function main() {
       }
     }
   });
-  notifyPlaces.forEach(async place => subNotifyPlace(place));
+  notifyPlaces.forEach(place => subNotifyPlace(place));
+  subNotifyPassed();
 }
 
 main()

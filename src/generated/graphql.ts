@@ -52,12 +52,17 @@ export type Query = {
   __typename?: "Query";
   queue?: Maybe<Queue>;
   queues: Array<Queue>;
+  queueFilter: QueueUpdateFilterPayload;
   student?: Maybe<Student>;
   students: Array<Student>;
 };
 
 export type QueryQueueArgs = {
   name: Scalars["String"];
+};
+
+export type QueryQueueFilterArgs = {
+  filterInput: QueueUpdateFilterInput;
 };
 
 export type QueryStudentArgs = {
@@ -68,7 +73,6 @@ export type Queue = {
   __typename?: "Queue";
   id: Scalars["ID"];
   name: Scalars["String"];
-  nextId: Scalars["Int"];
   studentToQueues: Array<StudentToQueue>;
   studentToQueuesInQueue: Array<StudentToQueue>;
   students: Array<Student>;
@@ -81,15 +85,29 @@ export type QueueInput = {
 export type QueuePlaceType = {
   __typename?: "QueuePlaceType";
   queueName: Scalars["String"];
-  place: Scalars["Float"];
-  uniqueId: Scalars["Float"];
+  place: Scalars["Int"];
+  uniqueId: Scalars["Int"];
+};
+
+export type QueueUpdateFilterInput = {
+  queueId: Scalars["String"];
+  upcomingLimit: Scalars["Int"];
+  historyLimit: Scalars["Int"];
+};
+
+export type QueueUpdateFilterPayload = {
+  __typename?: "QueueUpdateFilterPayload";
+  queueId: Scalars["ID"];
+  upcomingStudentToQueues: Array<StudentToQueue>;
+  historyStudentToQueues: Array<StudentToQueue>;
 };
 
 export enum Status {
   InQueue = "inQueue",
   Passed = "passed",
   Declined = "declined",
-  Left = "left"
+  Left = "left",
+  Current = "current"
 }
 
 export type Student = {
@@ -108,6 +126,23 @@ export type StudentInput = {
   tgId: Scalars["Int"];
 };
 
+export type StudentPassedPayload = {
+  __typename?: "StudentPassedPayload";
+  queueName: Scalars["String"];
+  place: Scalars["Int"];
+  uniqueId: Scalars["Int"];
+  student: Student;
+  passed: Scalars["Boolean"];
+};
+
+export type StudentPlaceUpdatePayload = {
+  __typename?: "StudentPlaceUpdatePayload";
+  queueName: Scalars["String"];
+  place: Scalars["Int"];
+  uniqueId: Scalars["Int"];
+  student: Student;
+};
+
 export type StudentToQueue = {
   __typename?: "StudentToQueue";
   studentToQueueId: Scalars["Int"];
@@ -120,22 +155,20 @@ export type StudentToQueue = {
   queue: Queue;
 };
 
-export type StudentUpdatePayload = {
-  __typename?: "StudentUpdatePayload";
-  queueName: Scalars["String"];
-  place: Scalars["Float"];
-  uniqueId: Scalars["Float"];
-  student: Student;
-};
-
 export type Subscription = {
   __typename?: "Subscription";
   queueUpdate: Queue;
-  notifyStudentPlace: StudentUpdatePayload;
+  queueUpdateFilter: QueueUpdateFilterPayload;
+  notifyStudentPlace: StudentPlaceUpdatePayload;
+  notifyStudentPassed: StudentPassedPayload;
 };
 
 export type SubscriptionQueueUpdateArgs = {
   queueName: Scalars["String"];
+};
+
+export type SubscriptionQueueUpdateFilterArgs = {
+  filterInput: QueueUpdateFilterInput;
 };
 
 export type SubscriptionNotifyStudentPlaceArgs = {
@@ -225,13 +258,22 @@ export type StudentQuery = { __typename?: "Query" } & {
   >;
 };
 
+export type PassedNotifySubscriptionVariables = {};
+
+export type PassedNotifySubscription = { __typename?: "Subscription" } & {
+  notifyStudentPassed: { __typename?: "StudentPassedPayload" } & Pick<
+    StudentPassedPayload,
+    "queueName" | "place" | "passed"
+  > & { student: { __typename?: "Student" } & StudentDataFragment };
+};
+
 export type PlaceNotifySubscriptionVariables = {
   place: Scalars["Int"];
 };
 
 export type PlaceNotifySubscription = { __typename?: "Subscription" } & {
-  notifyStudentPlace: { __typename?: "StudentUpdatePayload" } & Pick<
-    StudentUpdatePayload,
+  notifyStudentPlace: { __typename?: "StudentPlaceUpdatePayload" } & Pick<
+    StudentPlaceUpdatePayload,
     "queueName" | "place"
   > & { student: { __typename?: "Student" } & StudentDataFragment };
 };

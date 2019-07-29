@@ -63,6 +63,14 @@ declare module "*/queues.graphql" {
   export default defaultDocument;
 }
 
+declare module "*/notifyStudentPassed.graphql" {
+  import { DocumentNode } from "graphql";
+  const defaultDocument: DocumentNode;
+  export const PassedNotify: DocumentNode;
+
+  export default defaultDocument;
+}
+
 declare module "*/notifyStudentPlace.graphql" {
   import { DocumentNode } from "graphql";
   const defaultDocument: DocumentNode;

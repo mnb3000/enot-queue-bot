@@ -1,0 +1,11 @@
+#import "../fragments/student.graphql"
+subscription PassedNotify {
+    notifyStudentPassed {
+        queueName
+        place
+        passed
+        student {
+            ...StudentData
+        }
+    }
+}

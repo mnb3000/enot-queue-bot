@@ -38,4 +38,7 @@ ${queueNames.includes(queue.name) && queueIndex !== -1
 Ваш уникальный номер в очереди *${uniqueId}*`,
   leftQueue: (queueName: string) => `Вы успешно покинули очередь *${queueName}*`,
   queueNotification: (queueName: string, place: number) => `Поторопись! Ты уже под номером *${place}* в очереди *${queueName}*`,
+  queuePassedNotification: (queueName: string, passed: boolean) => (passed
+    ? `Сейчас *твоя очередь* в очереди *${queueName}*`
+    : `Ты был *отклонен* в очереди *${queueName}* :(`),
 };
