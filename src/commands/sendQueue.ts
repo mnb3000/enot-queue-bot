@@ -16,6 +16,7 @@ import keyboards from '../keyboards';
 import sendMenu from './sendMenu';
 import apolloClient from '../apolloClient';
 import { getStudentById } from '../utils';
+import sendIdPicture from './sendIdPicture';
 
 export default async function sendQueue(userId: number, queue: QueueQuery['queue']) {
   if (!queue) return;
@@ -44,7 +45,13 @@ export default async function sendQueue(userId: number, queue: QueueQuery['queue
         const queuePlace = find(updatedStudent.queuePlaces, {
           queueName: queue.name,
         });
-        await bot.sendMessage(userId, strings.joinedQueue(queue.name, queuePlace!.place, queuePlace!.uniqueId), { parse_mode: 'Markdown' });
+        if (!queuePlace) {
+          replyManager.cancelAll(userId);
+          await sendMenu(userId);
+          return;
+        }
+        await bot.sendMessage(userId, strings.joinedQueue(queue.name, queuePlace.place, queuePlace.uniqueId), { parse_mode: 'Markdown' });
+        await sendIdPicture(userId, queuePlace.uniqueId);
       } else {
         await bot.sendMessage(userId, strings.error);
       }
