@@ -1,6 +1,6 @@
 {
-  "name": "enot-queue-bot",
-  "version": "0.0.1",
+  "name": "@enot-queue/bot",
+  "version": "1.0.0",
   "main": "src/index.ts",
   "author": "mnb3000",
   "license": "MIT",
